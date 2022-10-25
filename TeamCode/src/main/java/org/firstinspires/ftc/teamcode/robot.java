@@ -16,12 +16,15 @@ import java.util.List;
 
 public class robot extends MecanumDrive {
     public static double LATERAL_MULTIPLIER=1.246; // yo no se que es un LateralMultiplier
+    HardwareMap hwMap = null;
 
     public robot(HardwareMap ahwMap){
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
 
     }
-
+    public void init(HardwareMap ahwMap) {
+        hwMap = ahwMap; //init hw map for following devices
+    }
     @Override
     protected double getRawExternalHeading() {
         return 0;
