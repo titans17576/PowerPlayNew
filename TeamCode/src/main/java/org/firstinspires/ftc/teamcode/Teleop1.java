@@ -77,7 +77,6 @@ public class Teleop1 extends LinearOpMode {
             }
 
         }
-
     }
     static double calcPower(double power, double slow){
         return power * power * Math.signum(power) * slow;
