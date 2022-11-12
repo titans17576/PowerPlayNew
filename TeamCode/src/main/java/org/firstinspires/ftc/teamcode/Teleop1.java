@@ -88,13 +88,12 @@ public class Teleop1 extends LinearOpMode {
 
             // Telemetry tick update
             telemetry.addData("Ticks", R.slide.getCurrentPosition());
-            telemetry.update();
 
             // Drive inputs
             double drive = -gamepad1.left_stick_y;
             double turn = gamepad1.right_stick_x;
             double strafe = gamepad1.left_stick_x;
-            double slow = 1 - gamepad1.right_trigger;
+            double slow = (1 - gamepad1.right_trigger);
 
             // Drive calculations
             R.leftRear.setPower(calcPower(drive + turn - strafe, slow));
@@ -104,17 +103,18 @@ public class Teleop1 extends LinearOpMode {
 
             // Servo controls
             if (gamepad1.left_bumper){
-                R.arm.setPosition(0.5);
+                R.arm.setPosition(1.0);
             }
             if (gamepad1.right_bumper){
                 R.arm.setPosition(0.0);
             }
 
+            telemetry.update();
         }
     }
 
     // Power calculation method
     static double calcPower(double power, double slow){
-        return power * power * Math.signum(power) * slow * .70;
+        return power * power * Math.signum(power) * slow;
     }
 }
