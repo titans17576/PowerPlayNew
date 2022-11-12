@@ -12,16 +12,16 @@ public class Teleop1 extends LinearOpMode {
         robot R = new robot(hardwareMap);
         waitForStart();
         while(opModeIsActive()){
-            R.setWeightedDrivePower(
+            /*R.setWeightedDrivePower(
                     new Pose2d(
                             -gamepad1.left_stick_x,
                             -gamepad1.left_stick_y,
                             gamepad1.right_stick_x
                     )
             );
-            R.update();
-            /*
-            float y1 = -gamepad1.left_stick_y;
+            R.update();*/
+
+            /*float y1 = -gamepad1.left_stick_y;
             float x1 = gamepad1.left_stick_x;
             float yaw = gamepad1.right_stick_x;
             float shift = 1f;
@@ -48,6 +48,18 @@ public class Teleop1 extends LinearOpMode {
             R.leftFront.setPower(lf);
             R.leftRear.setPower(lb);
             R.rightRear.setPower(rb);*/
+            double drive = -gamepad1.left_stick_y;
+            double turn = gamepad1.right_stick_x;
+            double strafe = gamepad1.left_stick_x;
+            double slow = (gamepad1.left_bumper || gamepad2.left_bumper)? 0.3 : 1.0;
+            R.leftRear.setPower(calcPower(drive + turn - strafe, slow));
+            R.leftFront.setPower(calcPower(drive + turn + strafe, slow));
+            R.rightRear.setPower(calcPower(drive - turn + strafe, slow));
+            R.rightFront.setPower(calcPower(drive - turn - strafe, slow));
         }
+
+    }
+    static double calcPower(double power, double slow){
+        return power * power * Math.signum(power) * slow;
     }
 }

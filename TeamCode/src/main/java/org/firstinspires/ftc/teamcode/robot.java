@@ -21,8 +21,10 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
@@ -118,7 +120,7 @@ public class robot extends MecanumDrive {
 
     public DcMotorEx leftFront, leftRear, rightRear, rightFront;
     public DcMotor slide;
-
+    public Servo arm;
     private List<DcMotorEx> motors;
 
     private BNO055IMU imu;
@@ -171,7 +173,7 @@ public class robot extends MecanumDrive {
         rightRear = hardwareMap.get(DcMotorEx.class, "right_back");
         rightFront = hardwareMap.get(DcMotorEx.class, "right_front");
         slide = hardwareMap.get(DcMotorEx.class, "slide_motor");
-
+        arm = hardwareMap.get(Servo.class, "arm_servo");
         // TODO: If directions not working, reverse problem motors
 
         leftFront.setPower(0);
@@ -180,7 +182,18 @@ public class robot extends MecanumDrive {
         rightFront.setPower(0);
         slide.setPower(0);
 
-
+        leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftRear.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 
         for (DcMotorEx motor : motors) {
@@ -371,4 +384,5 @@ public class robot extends MecanumDrive {
     public static TrajectoryAccelerationConstraint getAccelerationConstraint(double maxAccel) {
         return new ProfileAccelerationConstraint(maxAccel);
     }
+
 }
