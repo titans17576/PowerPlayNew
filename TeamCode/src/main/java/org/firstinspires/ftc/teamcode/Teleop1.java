@@ -13,13 +13,13 @@ public class Teleop1 extends LinearOpMode {
         robot R = new robot(hardwareMap);
         waitForStart();
         while(opModeIsActive()){
-            // Lift set to 1/3
+            // Lift set to 0
             if (gamepad1.dpad_down) {
                 R.slide.setTargetPosition(0);
                 R.slide.setPower(-0.8);
                 R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 while(R.slide.isBusy()){
-                    telemetry.addData("Status", "0");
+                    telemetry.addData("Status of Lift", "0");
                     telemetry.update();
                 }
                 R.slide.setPower(0);
@@ -31,10 +31,9 @@ public class Teleop1 extends LinearOpMode {
                 R.slide.setPower(0.8);
                 R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 while(R.slide.isBusy()){
-                    telemetry.addData("Status", "0");
+                    telemetry.addData("Status of Lift", "1/3");
                     telemetry.update();
                 }
-
             }
 
             // Lift set to 2/3
@@ -43,11 +42,11 @@ public class Teleop1 extends LinearOpMode {
                 R.slide.setPower(0.8);
                 R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 while(R.slide.isBusy()){
-                    telemetry.addData("Status", "0");
+                    telemetry.addData("Status of Lift", "2/3");
                     telemetry.update();
                 }
-
             }
+
 
             // Lift set to full
             if (gamepad1.dpad_right) {
@@ -55,17 +54,39 @@ public class Teleop1 extends LinearOpMode {
                 R.slide.setPower(0.8);
                 R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 while(R.slide.isBusy()){
-                    telemetry.addData("Status", "0");
+                    telemetry.addData("Status of Lift", "3/3");
                     telemetry.update();
                 }
-
             }
 
             // Emergency stop for lift
-            if (gamepad1.a) {
-
+            if (gamepad1.a){
                 R.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             }
+
+            // Manual control for lift
+            if (gamepad1.x) {
+                R.slide.setTargetPosition(R.slide.getCurrentPosition()+100);
+                R.slide.setPower(0.8);
+                R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                while(R.slide.isBusy()) {
+                    telemetry.addData("Status of Lift", "+100 ticks");
+                    telemetry.update();
+                }
+            }
+
+            // Manual control for lift
+            if (gamepad1.b) {
+                R.slide.setTargetPosition(R.slide.getCurrentPosition()-100);
+                R.slide.setPower(-0.8);
+                R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                while(R.slide.isBusy()) {
+                    telemetry.addData("Status of Lift", "-100 ticks");
+                    telemetry.update();
+                }
+            }
+
+            // Telemetry tick update
             telemetry.addData("Ticks", R.slide.getCurrentPosition());
             telemetry.update();
 
@@ -83,10 +104,10 @@ public class Teleop1 extends LinearOpMode {
 
             // Servo controls
             if (gamepad1.left_bumper){
-                R.arm.setPosition(R.arm.getPosition() + 1.0);
+                R.arm.setPosition(0.5);
             }
             if (gamepad1.right_bumper){
-                R.arm.setPosition(R.arm.getPosition() - 1.0);
+                R.arm.setPosition(0.0);
             }
 
         }
@@ -94,6 +115,6 @@ public class Teleop1 extends LinearOpMode {
 
     // Power calculation method
     static double calcPower(double power, double slow){
-        return power * power * Math.signum(power) * slow;
+        return power * power * Math.signum(power) * slow * .70;
     }
 }
