@@ -2,8 +2,12 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.Range;
 
-public class TeleOp extends LinearOpMode {
+@TeleOp(name="Teleop1")
+public class Teleop1 extends LinearOpMode {
+    @Override
     public void runOpMode(){
         robot R = new robot(hardwareMap);
         waitForStart();
@@ -16,14 +20,14 @@ public class TeleOp extends LinearOpMode {
                     )
             );
             R.update();
-            /**
-            y1 = -gamepad1.left_stick_y;
-            x1 = gamepad1.left_stick_x;
-            yaw = gamepad1.right_stick_x;
+            /*
+            float y1 = -gamepad1.left_stick_y;
+            float x1 = gamepad1.left_stick_x;
+            float yaw = gamepad1.right_stick_x;
+            float shift = 1f;
 
 
-
-
+            int reverse;
             if (gamepad1.right_bumper){
                 reverse = -1;
             }
@@ -35,12 +39,15 @@ public class TeleOp extends LinearOpMode {
             double rb = Range.clip((((y1 * reverse) - yaw + (x1 * reverse)) * shift), -1.0, 1.0);
             double lf = Range.clip((((y1 * reverse) + yaw + (x1 * reverse)) * shift), -1.0, 1.0);
             double rf = Range.clip((((y1 * reverse) - yaw - (x1 * reverse)) * reverse * shift), -1.0, 1.0);
-
-            robot.q1.setPower(rf);
-            robot.q2.setPower(lf);
-            robot.q3.setPower(lb);
-            robot.q4.setPower(rb);
-             **/
+            telemetry.addData("lf", lf);
+            telemetry.addData("rf", rf);
+            telemetry.addData("lb", lb);
+            telemetry.addData("rb", rb);
+            telemetry.update();
+            R.rightFront.setPower(rf);
+            R.leftFront.setPower(lf);
+            R.leftRear.setPower(lb);
+            R.rightRear.setPower(rb);*/
         }
     }
 }

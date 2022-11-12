@@ -116,7 +116,9 @@ public class robot extends MecanumDrive {
 
     private TrajectoryFollower follower;
 
-    private DcMotorEx leftFront, leftRear, rightRear, rightFront;
+    public DcMotorEx leftFront, leftRear, rightRear, rightFront;
+    public DcMotor slide;
+
     private List<DcMotorEx> motors;
 
     private BNO055IMU imu;
@@ -164,10 +166,11 @@ public class robot extends MecanumDrive {
         // For example, if +Y in this diagram faces downwards, you would use AxisDirection.NEG_Y.
         // BNO055IMUUtil.remapZAxis(imu, AxisDirection.NEG_Y);
 
-        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
-        leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
-        rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
-        rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
+        leftFront = hardwareMap.get(DcMotorEx.class, "left_front");
+        leftRear = hardwareMap.get(DcMotorEx.class, "left_back");
+        rightRear = hardwareMap.get(DcMotorEx.class, "right_back");
+        rightFront = hardwareMap.get(DcMotorEx.class, "right_front");
+        slide = hardwareMap.get(DcMotorEx.class, "slide_motor");
 
         // TODO: If directions not working, reverse problem motors
 
@@ -175,7 +178,7 @@ public class robot extends MecanumDrive {
         leftRear.setPower(0);
         rightRear.setPower(0);
         rightFront.setPower(0);
-
+        slide.setPower(0);
 
 
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
