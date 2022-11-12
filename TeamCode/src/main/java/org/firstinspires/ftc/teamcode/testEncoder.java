@@ -36,6 +36,46 @@ public class testEncoder extends LinearOpMode {
                 R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 
             }
+            if (gamepad1.dpad_right) {
+               R.slide.setTargetPosition(0);
+               R.slide.setPower(-0.8);
+               R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+               while(R.slide.isBusy()){
+                   telemetry.addData("Status", "0");
+                   telemetry.update();
+               }
+               R.slide.setPower(0);
+            }
+            if (gamepad1.dpad_left) {
+                R.slide.setTargetPosition(663);
+                R.slide.setPower(0.8);
+                R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                while(R.slide.isBusy()){
+                    telemetry.addData("Status", "0");
+                    telemetry.update();
+                }
+
+            }
+            if (gamepad1.dpad_up) {
+                R.slide.setTargetPosition(1362);
+                R.slide.setPower(0.8);
+                R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                while(R.slide.isBusy()){
+                    telemetry.addData("Status", "0");
+                    telemetry.update();
+                }
+
+            }
+            if (gamepad1.dpad_down) {
+                R.slide.setTargetPosition(1990);
+                R.slide.setPower(0.8);
+                R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                while(R.slide.isBusy()){
+                    telemetry.addData("Status", "0");
+                    telemetry.update();
+                }
+
+            }
             telemetry.addData("Ticks", R.slide.getCurrentPosition());
             telemetry.update();
         }
