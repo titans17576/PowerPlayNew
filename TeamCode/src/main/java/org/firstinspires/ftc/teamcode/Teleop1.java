@@ -12,42 +12,6 @@ public class Teleop1 extends LinearOpMode {
         robot R = new robot(hardwareMap);
         waitForStart();
         while(opModeIsActive()){
-            /*R.setWeightedDrivePower(
-                    new Pose2d(
-                            -gamepad1.left_stick_x,
-                            -gamepad1.left_stick_y,
-                            gamepad1.right_stick_x
-                    )
-            );
-            R.update();*/
-
-            /*float y1 = -gamepad1.left_stick_y;
-            float x1 = gamepad1.left_stick_x;
-            float yaw = gamepad1.right_stick_x;
-            float shift = 1f;
-
-
-            int reverse;
-            if (gamepad1.right_bumper){
-                reverse = -1;
-            }
-            else {
-                reverse = 1;
-            }
-
-            double lb = Range.clip((((y1 * reverse) + yaw - (x1 * reverse)) * shift), -1.0, 1.0);
-            double rb = Range.clip((((y1 * reverse) - yaw + (x1 * reverse)) * shift), -1.0, 1.0);
-            double lf = Range.clip((((y1 * reverse) + yaw + (x1 * reverse)) * shift), -1.0, 1.0);
-            double rf = Range.clip((((y1 * reverse) - yaw - (x1 * reverse)) * reverse * shift), -1.0, 1.0);
-            telemetry.addData("lf", lf);
-            telemetry.addData("rf", rf);
-            telemetry.addData("lb", lb);
-            telemetry.addData("rb", rb);
-            telemetry.update();
-            R.rightFront.setPower(rf);
-            R.leftFront.setPower(lf);
-            R.leftRear.setPower(lb);
-            R.rightRear.setPower(rb);*/
             double drive = -gamepad1.left_stick_y;
             double turn = gamepad1.right_stick_x;
             double strafe = gamepad1.left_stick_x;
