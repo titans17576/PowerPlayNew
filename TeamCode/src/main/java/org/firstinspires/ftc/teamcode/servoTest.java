@@ -21,8 +21,16 @@ public class servoTest extends LinearOpMode {
             /*telemetry.addData("pos", R.arm.getPosition());
             telemetry.addData("dir", R.arm.getDirection());
             telemetry.update();*/
-            R.arm.setPosition(0.0);
-            R.arm.setPosition(1.0);
+            if(gamepad1.x){
+                R.arm.setPosition(0.0);
+            }
+            if(gamepad1.a) {
+                R.arm.setPosition(.29);
+            }
+            if(gamepad1.b) {
+                R.arm.setPosition(1.0);
+            }
+
         }
     }
 }
