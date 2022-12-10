@@ -22,9 +22,10 @@ import org.openftc.easyopencv.OpenCvPipeline;
 public class visionTest extends LinearOpMode
 {
     public enum location{
-        cyan,
-        magenta,
-        yellow
+        CYAN,
+        MAGENTA,
+        YELLOW,
+        NONE
     }
     OpenCvInternalCamera phoneCam;
     cmyDetection pipeline;
@@ -83,7 +84,7 @@ public class visionTest extends LinearOpMode
 
         Mat tempOutput = new Mat();
 
-        int color = -1;
+        location color = location.NONE;
 
         Mat outPut = new Mat();
 
@@ -130,7 +131,16 @@ public class visionTest extends LinearOpMode
                         }
                     }
                 }
-                this.color = maxInd;
+                switch (maxInd) {
+                    case 0:
+                        this.color = location.CYAN;
+                    case 1:
+                        this.color = location.MAGENTA;
+                    case 2:
+                        this.color = location.YELLOW;
+                    default:
+                        this.color = location.NONE;
+                }
                 try {
                     Rect rectangle = Imgproc.boundingRect(contours[maxInd].get(maxValIdx));
                     Imgproc.rectangle(input, rectangle.tl(), rectangle.br(), new Scalar(255, 0, 0), 1);
@@ -138,25 +148,16 @@ public class visionTest extends LinearOpMode
                             hierarchies[maxInd], 2, new Point());
                 }
                 catch (Exception e){
-                    this.color = 3;
+                    this.color = location.YELLOW;
                 }
             }
             else{
-                this.color = 3;
+                this.color = location.YELLOW;
             }
             return (input);
         }
         public String getAnalysis() {
-            switch (color) {
-                case 0:
-                    return "Cyan";
-                case 1:
-                    return "Magenta";
-                case 2:
-                    return "Yellow";
-                default:
-                    return "None";
-            }
+            return color.toString();
         }
     }
 }
