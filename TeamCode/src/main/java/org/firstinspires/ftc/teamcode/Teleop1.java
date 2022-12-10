@@ -14,6 +14,11 @@ public class Teleop1 extends LinearOpMode {
         waitForStart();
         double test = 0;
         double slow = 1;
+        R.leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        R.leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        R.rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        R.rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         while(opModeIsActive()){
             // Lift set to 0
             if (gamepad1.dpad_down) {
@@ -93,7 +98,12 @@ public class Teleop1 extends LinearOpMode {
 
             // Telemetry tick update
             telemetry.addData("Ticks", R.slide.getCurrentPosition());
-
+            if(gamepad1.left_trigger >= 0.5) {
+                slow = 0.15;
+            }
+            else{
+                slow = 1;
+            }
             // Drive inputs
             double drive = -gamepad1.left_stick_y;
             double turn = gamepad1.right_stick_x;
@@ -107,11 +117,10 @@ public class Teleop1 extends LinearOpMode {
 
             // Servo controls
             if(gamepad1.left_bumper){
-                //R.arm.setPosition(1.0);
-                slow = 1;
+                R.arm.setPosition(1.0);
             }
             if(gamepad1.right_bumper) {
-                //R.arm.setPosition(.29);
+                R.arm.setPosition(.3);
                 slow = 0.5;
             }
 
