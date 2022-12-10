@@ -121,7 +121,6 @@ public class Teleop1 extends LinearOpMode {
             }
             if(gamepad1.right_bumper) {
                 R.arm.setPosition(.3);
-                slow = 0.5;
             }
 
 
