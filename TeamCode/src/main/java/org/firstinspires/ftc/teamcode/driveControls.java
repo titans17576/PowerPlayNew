@@ -6,18 +6,25 @@ import com.qualcomm.robotcore.util.Range;
 
 public class driveControls {
     double slow = 1; //
+    double regSpeed = 1;
+    double slowSpeed = 0.15;
     public void initialize(robot R){
         R.leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         R.leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         R.rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         R.rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
+    public void initialize(robot R, double regularSpeed, double slowedSpeed){
+        initialize(R);
+        regSpeed = regularSpeed;
+        slowSpeed = slowedSpeed;
+    }
     public void drive(robot R, Gamepad gamepad1) {
         if(gamepad1.left_trigger >= 0.5) {
-            slow = 0.15;
+            slow = slowSpeed;
         }
         else{
-            slow = 1;
+            slow = regSpeed;
         }
         // Drive inputs
         double drive = -gamepad1.left_stick_y;
