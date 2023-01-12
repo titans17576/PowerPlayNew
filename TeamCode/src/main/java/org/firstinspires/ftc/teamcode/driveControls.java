@@ -2,9 +2,10 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.util.Range;
 
 public class driveControls {
-    double slow = 1;
+    double slow = 1; //
     public void initialize(robot R){
         R.leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         R.leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -31,6 +32,6 @@ public class driveControls {
 
     }
     static double calcPower(double power, double slow) {
-        return power * power * Math.signum(power) * slow;
+        return Range.clip(power * power * Math.signum(power) * slow,-slow,slow);
     }
 }
