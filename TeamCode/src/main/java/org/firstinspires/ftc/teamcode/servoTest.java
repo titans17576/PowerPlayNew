@@ -2,9 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ServoController;
 
 @TeleOp(name="servoTest")
 
@@ -22,13 +20,13 @@ public class servoTest extends LinearOpMode {
             telemetry.addData("dir", R.arm.getDirection());
             telemetry.update();*/
             if(gamepad1.x){
-                R.arm.setPosition(0.0);
+                R.claw.setPosition(0.0);
             }
             if(gamepad1.a) {
-                R.arm.setPosition(.29);
+                R.claw.setPosition(.29);
             }
             if(gamepad1.b) {
-                R.arm.setPosition(1.0);
+                R.claw.setPosition(1.0);
             }
 
         }
