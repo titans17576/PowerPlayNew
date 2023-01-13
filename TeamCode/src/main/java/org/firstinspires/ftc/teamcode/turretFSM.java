@@ -14,7 +14,10 @@ public class turretFSM {
         LEFT,
         RIGHT,
         EXTENDED_LEFT,
-        EXTENDED_RIGHT
+        EXTENDED_RIGHT,
+        MOVE_LEFT,
+        MOVE_RIGHT,
+        STOP
     }
 
     // Position variables
@@ -193,6 +196,16 @@ public class turretFSM {
                 // Add lift position to telemetry
                 telemetry.addData("Status of Turret", "EXTENDED_RIGHT");
                 break;
+
+            //Turret set to continuous left
+            case MOVE_LEFT:
+                //press button to continuously move left
+                if(currentGamepad1.dpad_left)
+                {
+                    R.turret.setPower(-1);
+
+                }
+
         }
         telemetry.addData("dpad_left",currentGamepad1.dpad_left);
         telemetry.addData("dpad_right",currentGamepad1.dpad_right);
