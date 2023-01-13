@@ -69,7 +69,9 @@ public class turretFSM {
                 } else if (currentGamepad1.dpad_right && !previousGamepad1.dpad_right) {
                     turretState = TurretState.RIGHT;
                     telemetry.addData("Turret Move Requested", "TRUE");
-                } else {
+                } else if(currentGamepad1.y){
+                    turretState = TurretState.STOP;
+                }else {
                     telemetry.addData("Turret Move Requested", "FALSE");
                 }
 
@@ -89,7 +91,9 @@ public class turretFSM {
                     R.turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     R.turret.setPower(0);
                     telemetry.addData("Turret Moved", "TRUE");
-                } else {
+                } else if(currentGamepad1.y){
+                    turretState = TurretState.STOP;
+                }else {
                     telemetry.addData("Turret Moved", "FALSE");
                 }
 
@@ -100,7 +104,9 @@ public class turretFSM {
                 } else if (currentGamepad1.dpad_right && !previousGamepad1.dpad_right) {
                     turretState = TurretState.FORWARD;
                     telemetry.addData("Turret Move Requested", "TRUE");
-                } else {
+                } else if(currentGamepad1.y){
+                    turretState = TurretState.STOP;
+                }else {
                     telemetry.addData("Turret Move Requested", "FALSE");
                 }
 
@@ -131,7 +137,9 @@ public class turretFSM {
                 } else if (currentGamepad1.dpad_right && !previousGamepad1.dpad_right) {
                     turretState = TurretState.EXTENDED_RIGHT;
                     telemetry.addData("Turret Move Requested", "TRUE");
-                } else {
+                } else if(currentGamepad1.y){
+                    turretState = TurretState.STOP;
+                }else {
                     telemetry.addData("Turret Move Requested", "FALSE");
                 }
 
@@ -151,7 +159,7 @@ public class turretFSM {
                     R.turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     R.turret.setPower(0);
                     telemetry.addData("Turret Moved", "TRUE");
-                } else {
+                } else{
                     telemetry.addData("Turret Moved", "FALSE");
                 }
 
@@ -159,7 +167,9 @@ public class turretFSM {
                 if (currentGamepad1.dpad_right && !previousGamepad1.dpad_right) {
                     turretState = TurretState.LEFT;
                     telemetry.addData("Turret Move Requested", "TRUE");
-                } else {
+                } else if(currentGamepad1.y){
+                    turretState = TurretState.STOP;
+                }else {
                     telemetry.addData("Turret Move Requested", "FALSE");
                 }
 
@@ -179,7 +189,9 @@ public class turretFSM {
                     R.turret.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                     R.turret.setPower(0);
                     telemetry.addData("Turret Moved", "TRUE");
-                } else {
+                }
+                else
+                {
                     telemetry.addData("Turret Moved", "FALSE");
                 }
 
@@ -187,7 +199,9 @@ public class turretFSM {
                 if(currentGamepad1.dpad_left && !previousGamepad1.dpad_left) {
                     turretState = TurretState.RIGHT;
                     telemetry.addData("Turret Move Requested", "TRUE");
-                } else {
+                } else if(currentGamepad1.y){
+                    turretState = TurretState.STOP;
+                }else {
                     telemetry.addData("Turret Move Requested", "FALSE");
                 }
 
@@ -199,12 +213,53 @@ public class turretFSM {
 
             //Turret set to continuous left
             case MOVE_LEFT:
-                //press button to continuously move left
-                if(currentGamepad1.dpad_left)
-                {
-                    R.turret.setPower(-1);
-
+                if(R.turret.getMode() == DcMotor.RunMode.RUN_USING_ENCODER || R.turret.getMode() == DcMotor.RunMode.RUN_TO_POSITION){
+                    R.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
                 }
+                if(currentGamepad1.dpad_left){
+                    R.turret.setPower(1);
+                }
+                else if(currentGamepad1.dpad_right)
+                {
+                    turretState = TurretState.MOVE_RIGHT;
+                }
+                else
+                {
+                    turretState = TurretState.STOP;
+                }
+                break;
+            case MOVE_RIGHT:
+                if(R.turret.getMode() == DcMotor.RunMode.RUN_USING_ENCODER || R.turret.getMode() == DcMotor.RunMode.RUN_TO_POSITION){
+                    R.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                }
+                if(currentGamepad1.dpad_right){
+                    R.turret.setPower(-1);
+                }
+                else if(currentGamepad1.dpad_left)
+                {
+                    turretState = TurretState.MOVE_LEFT;
+                }
+                else
+                {
+                    turretState = TurretState.STOP;
+                }
+                break;
+            case STOP:
+                if(R.turret.getMode() == DcMotor.RunMode.RUN_USING_ENCODER || R.turret.getMode() == DcMotor.RunMode.RUN_TO_POSITION){
+                    R.turret.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                }
+                if(currentGamepad1.dpad_left){
+                    turretState = TurretState.MOVE_LEFT;
+                }
+                else if(currentGamepad1.dpad_right)
+                {
+                    turretState = TurretState.MOVE_RIGHT;
+                }
+                else
+                {
+                    R.turret.setPower(0);
+                }
+                break;
 
         }
         telemetry.addData("dpad_left",currentGamepad1.dpad_left);
