@@ -14,9 +14,9 @@ public class clawFSM {
     };
 
     // Position variables
-    final int position_tolerance = 10;
-    final int closed_position = 1;
-    final int open_position = 0;
+    final double position_tolerance = 0;
+    final double closed_position = 1;
+    final double open_position = 0;
 
     // ClawState instance variable
     ClawState clawState = ClawState.CLOSED;

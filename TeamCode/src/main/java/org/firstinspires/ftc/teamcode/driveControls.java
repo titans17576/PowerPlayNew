@@ -5,11 +5,11 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
 public class driveControls {
-    double slow = 1; //
+    double slow; //
     double regSpeed;
     double slowSpeed;
     public driveControls(){
-        this(1,0.15);
+        this(0.7,0.15);
     }
     public driveControls(double regularSpeed, double slowedSpeed){
         regSpeed = regularSpeed;
