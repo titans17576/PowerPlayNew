@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
-@Autonomous(name="auton")
+@Autonomous(name="auton5")
 public class autonPath5 extends LinearOpMode {
 
     @Override

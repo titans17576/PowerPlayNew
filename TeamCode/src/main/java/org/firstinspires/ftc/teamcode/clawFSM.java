@@ -15,7 +15,7 @@ public class clawFSM {
 
     // Position variables
     final int position_tolerance = 10;
-    final int closed_position = 300;
+    final int closed_position = 1;
     final int open_position = 0;
 
     // ClawState instance variable

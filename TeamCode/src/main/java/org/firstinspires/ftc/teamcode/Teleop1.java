@@ -11,16 +11,15 @@ import java.util.HashMap;
 
 @TeleOp(name="Teleop1")
 public class Teleop1 extends LinearOpMode {
-    // Class instance variables
-    public robot R = new robot(hardwareMap);
-    public Gamepad previousGamepad1 = new Gamepad();
-    public liftFSM LiftFSM = new liftFSM(R, telemetry, gamepad1,previousGamepad1);
-    public clawFSM ClawFSM = new clawFSM(R, telemetry, gamepad1, previousGamepad1);
-    public turretFSM TurretFSM = new turretFSM(R, telemetry, gamepad1, previousGamepad1);
 
 
     @Override
     public void runOpMode(){
+        robot R = new robot(hardwareMap);
+        Gamepad previousGamepad1 = new Gamepad();
+        liftFSM LiftFSM = new liftFSM(R, telemetry, gamepad1,previousGamepad1);
+        clawFSM ClawFSM = new clawFSM(R, telemetry, gamepad1, previousGamepad1);
+        turretFSM TurretFSM = new turretFSM(R, telemetry, gamepad1, previousGamepad1);
         waitForStart();
 
         while(opModeIsActive()){
@@ -39,11 +38,6 @@ public class Teleop1 extends LinearOpMode {
             // Update previousGamepad with current states
             previousGamepad1 = gamepad1;
         }
-    }
-
-    // Power calculation method
-    static double calcPower(double power, double slow){
-        return power * power * Math.signum(power) * slow;
     }
 }
 ;

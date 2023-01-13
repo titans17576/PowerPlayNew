@@ -47,7 +47,7 @@ public class liftFSM {
             // Lift set to 0
             case ZERO:
                 // Check position and move if not at 0
-                if (abs(R.slide.getCurrentPosition()) <= position_tolerance) {
+                /*if (abs(R.slide.getCurrentPosition()) <= position_tolerance) {
                     R.slide.setTargetPosition(0);
                     R.slide.setPower(0.8);
                     R.slide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -171,7 +171,7 @@ public class liftFSM {
                 // Add encoder position to telemetry
                 telemetry.addData("Ticks", R.slide.getCurrentPosition());
                 // Add lift position to telemetry
-                telemetry.addData("Status of Lift", "HIGH");
+                telemetry.addData("Status of Lift", "HIGH");*/
         }
     }
 }

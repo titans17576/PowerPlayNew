@@ -11,6 +11,10 @@ public class driveTest extends LinearOpMode {
     @Override
     public void runOpMode(){
         robot R = new robot(hardwareMap);
+        R.leftFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        R.leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        R.rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        R.rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         waitForStart();
         double test = 0;
         double slow = 1;

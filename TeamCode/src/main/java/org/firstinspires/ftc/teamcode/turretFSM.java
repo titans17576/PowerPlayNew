@@ -193,7 +193,6 @@ public class turretFSM {
                 telemetry.addData("Encoder Ticks", R.turret.getCurrentPosition());
                 // Add lift position to telemetry
                 telemetry.addData("Status of Turret", "EXTENDED_RIGHT");
-
                 break;
         }
     }

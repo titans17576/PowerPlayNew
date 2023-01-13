@@ -14,9 +14,9 @@ public class testEncoder extends LinearOpMode {
     public void runOpMode(){
         robot R = new robot(hardwareMap);
         waitForStart();
-        R.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //R.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         while(opModeIsActive()){
-            if (gamepad1.a) {
+            /*if (gamepad1.a) {
 
                 R.slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             }
@@ -77,7 +77,7 @@ public class testEncoder extends LinearOpMode {
 
             }
             telemetry.addData("Ticks", R.slide.getCurrentPosition());
-            telemetry.update();
+            telemetry.update();*/
         }
     }
 }
