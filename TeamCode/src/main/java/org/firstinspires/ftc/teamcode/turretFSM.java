@@ -59,6 +59,7 @@ public class turretFSM {
         telemetry.addData("Status of Turret", status);
     }
 
+    // Update method for teleop implementation
     public void teleopUpdate(){
         telemetry.addLine("Turret Data");
                 // State machine switch statement
@@ -186,6 +187,7 @@ public class turretFSM {
         }
     }
 
+    // Update method for auton implementation
     public void autonUpdate(TurretState newState){
         telemetry.addLine("Turret Data");
         // State machine switch statement

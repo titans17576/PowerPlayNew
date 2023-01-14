@@ -47,6 +47,14 @@ public class autonPath1 extends LinearOpMode {
         TrajectorySequence path2 = R.trajectorySequenceBuilder(new Pose2d(0, 0,Math.toRadians(0)))
             .turn(Math.toRadians(-90))
             .forward(120.0)
+            .addTemporalMarker(0, () -> {
+                while (true) {
+                    LiftFSM.autonUpdate(liftState.get());
+                    ClawFSM.autonUpdate(clawState.get());
+                    ArmFSM.autonUpdate(armState.get());
+                    TurretFSM.autonUpdate(turretState.get());
+                }
+            })
             .build();
 
         waitForStart();

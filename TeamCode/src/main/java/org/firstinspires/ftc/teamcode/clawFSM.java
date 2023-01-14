@@ -42,6 +42,7 @@ public class clawFSM {
         telemetry.addData("Status of Claw", status);
     }
 
+    // Update method for teleop implementation
     public void teleopUpdate() {
         telemetry.addLine("Claw Data");
 
@@ -93,6 +94,7 @@ public class clawFSM {
         }
     }
 
+    // Update method for auton implementation
     public void autonUpdate(ClawState newState) {
         telemetry.addLine("Claw Data");
 
