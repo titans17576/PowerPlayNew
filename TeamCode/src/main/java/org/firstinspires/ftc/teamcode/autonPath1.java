@@ -32,7 +32,6 @@ public class autonPath1 extends LinearOpMode {
 
         TrajectorySequence path1 = R.trajectorySequenceBuilder(new Pose2d(0, 0,Math.toRadians(0)))
             .turn(Math.toRadians(90))
-            .addDisplacementMarker( () -> {liftState.set(liftFSM.LiftState.HIGH);})
             .splineTo(new Vector2d(-60.0, -60.0), Math.toRadians(180))
             .addTemporalMarker(0, () -> {
                 while (true) {
