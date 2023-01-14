@@ -19,8 +19,8 @@ public class liftFSM {
     // Position variables
     final int position_tolerance = 5;
     final int zero_position = 0;
-    final int low_position = 723;
-    final int mid_position = 1442;
+    final int low_position = 1240;
+    final int mid_position = 1442; // max we could reach was like 1500 ticks so idk
     final int high_position = 1980;
 
     // LiftState instance variable
@@ -49,6 +49,7 @@ public class liftFSM {
         R.leftSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         R.rightSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         R.leftSlide.setPower(0);
+        R.rightSlide.setPower(0);
     }
 
     // Method to add encoders and status to telemetry
@@ -67,27 +68,27 @@ public class liftFSM {
         switch (liftState) {
             // Lift set to 0
             case ZERO:
-                // Check position and move if not at 0
-                if (abs(R.leftSlide.getCurrentPosition() - zero_position) <= position_tolerance) {
-                    moveTo(zero_position);
-                    telemetry.addData("Lift Moved", "TRUE");
-                } else {
-                    telemetry.addData("Lift Moved", "FALSE");
-                }
+                    // Check position and move if not at 0
+                    if (abs(R.leftSlide.getCurrentPosition() - zero_position) <= position_tolerance) {
+                        moveTo(zero_position);
+                        telemetry.addData("Lift Moved", "TRUE");
+                    } else {
+                        telemetry.addData("Lift Moved", "FALSE");
+                    }
 
-                // State inputs
-                if (gamepad1.dpad_up && !previousGamepad1.dpad_up) {
-                    liftState = LiftState.LOW;
-                    telemetry.addData("Move Requested", "TRUE");
-                } else {
-                    telemetry.addData("Move Requested", "FALSE");
-                }
+                    // State inputs
+                    if (gamepad1.dpad_up && !previousGamepad1.dpad_up) {
+                        liftState = LiftState.LOW;
+                        telemetry.addData("Move Requested", "TRUE");
+                    } else {
+                        telemetry.addData("Move Requested", "FALSE");
+                    }
 
-                updateTelemetry("Zero");
+                    updateTelemetry("Zero");
 
-                break;
+                    break;
 
-            // Lift set to 1/3
+                // Lift set to 1/3
             case LOW:
                 // Check position and move if not at low_position
                 if (abs(R.leftSlide.getCurrentPosition() - low_position) <= position_tolerance) {

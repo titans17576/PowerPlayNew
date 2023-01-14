@@ -27,28 +27,16 @@ public class driveTest extends LinearOpMode {
 
             // Servo controls
             if(gamepad1.x){
-                R.leftRear.setPower(0.5);
                 R.leftFront.setPower(0.5);
-                R.rightRear.setPower(0.5);
-                R.rightFront.setPower(0.5);
             }
             if(gamepad1.y){
-                R.leftRear.setPower(1);
-                R.leftFront.setPower(1);
-                R.rightRear.setPower(1);
-                R.rightFront.setPower(1);
+                R.leftRear.setPower(0.5);
             }
             if(gamepad1.a){
-                R.leftRear.setPower(0);
-                R.leftFront.setPower(0);
-                R.rightRear.setPower(0);
-                R.rightFront.setPower(0);
+                R.rightFront.setPower(0.5);
             }
             if(gamepad1.b){
-                R.leftRear.setPower(-0.5);
-                R.leftFront.setPower(-0.5);
-                R.rightRear.setPower(-0.5);
-                R.rightFront.setPower(-0.5);
+                R.rightRear.setPower(0.5);
             }
 
 
