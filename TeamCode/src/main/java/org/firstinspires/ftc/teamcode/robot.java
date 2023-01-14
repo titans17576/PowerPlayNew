@@ -116,8 +116,7 @@ public class robot extends MecanumDrive {
     private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
     private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL);
 
-    public DcMotorEx leftFront, leftRear, rightRear, rightFront, turret;
-    public DcMotor leftSlide, rightSlide;
+    public DcMotorEx leftFront, leftRear, rightRear, rightFront, turret, leftSlide, rightSlide;
     public Servo claw, arm;
     private final List<DcMotorEx> motors;
 
@@ -170,8 +169,10 @@ public class robot extends MecanumDrive {
         leftRear = hardwareMap.get(DcMotorEx.class, "leftRear");
         rightRear = hardwareMap.get(DcMotorEx.class, "rightRear");
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
-        //slide = hardwareMap.get(DcMotorEx.class, "slide_motor");
+        leftSlide = hardwareMap.get(DcMotorEx.class, "rightSlide");
+        rightSlide = hardwareMap.get(DcMotorEx.class, "leftSlide");
         claw = hardwareMap.get(Servo.class, "claw");
+        arm = hardwareMap.get(Servo.class, "arm");
         turret = hardwareMap.get(DcMotorEx.class, "turret");
 
         // TODO: If directions not working, reverse problem motors

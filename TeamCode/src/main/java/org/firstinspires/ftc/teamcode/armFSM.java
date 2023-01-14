@@ -15,8 +15,8 @@ public class armFSM {
 
     // Position variables
     final double position_tolerance = 0;
-    final double closed_position = 1;
-    final double open_position = 0;
+    final double retracted_position = 1;
+    final double extended_position = 0;
 
     // ClawState instance variable
     ArmState armState = ArmState.RETRACTED;
@@ -50,15 +50,15 @@ public class armFSM {
             // Claw open
             case RETRACTED:
                 // Check position and move if not at closed_position
-                if(abs(R.arm.getPosition() - closed_position) >= position_tolerance){
-                    R.arm.setPosition(closed_position);
+                if(abs(R.arm.getPosition() - retracted_position) >= position_tolerance){
+                    R.arm.setPosition(retracted_position);
                     telemetry.addData("Arm Moved", "TRUE");
                 } else {
                     telemetry.addData("Arm Moved", "FALSE");
                 }
 
                 // State inputs
-                if(gamepad1.a && !previousGamepad1.a){
+                if(gamepad1.x && !previousGamepad1.x){
                     armState = ArmState.EXTENDED;
                     telemetry.addData("Arm Move Requested", "TRUE");
                 } else {
@@ -72,15 +72,15 @@ public class armFSM {
             // Claw closed
             case EXTENDED:
                 // Check position and move if not at open_position
-                if(abs(R.arm.getPosition() - open_position) >= position_tolerance){
-                    R.arm.setPosition(open_position);
+                if(abs(R.arm.getPosition() - extended_position) >= position_tolerance){
+                    R.arm.setPosition(extended_position);
                     telemetry.addData("Arm Moved", "TRUE");
                 } else {
                     telemetry.addData("Arm Moved", "FALSE");
                 }
 
                 // State inputs
-                if(gamepad1.b && !previousGamepad1.b){
+                if(gamepad1.y && !previousGamepad1.y){
                     armState = ArmState.RETRACTED;
                     telemetry.addData("Arm Move Requested", "TRUE");
                 } else {
