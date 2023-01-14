@@ -21,7 +21,7 @@ public class Teleop1 extends LinearOpMode {
         Gamepad previousGamepad1 = new Gamepad();
 
         turretFSM TurretFSM = new turretFSM(R, telemetry, currentGamepad1, previousGamepad1);
-        // liftFSM LiftFSM = new liftFSM(R, telemetry, currentGamepad1, previousGamepad1);
+        liftFSM LiftFSM = new liftFSM(R, telemetry, currentGamepad1, previousGamepad1);
         armFSM ArmFSM = new armFSM(R, telemetry, currentGamepad1, previousGamepad1);
         clawFSM ClawFSM = new clawFSM(R, telemetry, currentGamepad1, previousGamepad1);
 
@@ -32,7 +32,7 @@ public class Teleop1 extends LinearOpMode {
         DriveControls.initialize();
 
         while(opModeIsActive()){
-            //
+            // Previous gamepad implementation code
             previousGamepad1.copy(currentGamepad1);
             currentGamepad1.copy(gamepad1);
 
@@ -40,7 +40,7 @@ public class Teleop1 extends LinearOpMode {
             TurretFSM.teleopUpdate();
 
             // Lift finite state machine update
-            //LiftFSM.teleopUpdate();
+            LiftFSM.teleopUpdate();
 
             // Extension arm finite state machine update
             ArmFSM.teleopUpdate();
