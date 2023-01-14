@@ -1,4 +1,3 @@
-/*
 package org.firstinspires.ftc.teamcode;
 
 import static java.lang.Math.abs;
@@ -10,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class liftFSM {
     // Enum for state memory
-    private enum LiftState {
+    public enum LiftState {
         ZERO,
         LOW,
         MID,
@@ -163,5 +162,125 @@ public class liftFSM {
 
         }
     }
+
+    // Update method for auton implementation
+    public void autonUpdate(LiftState newState) {
+        telemetry.addLine("Lift Data");
+
+        switch (liftState) {
+            // Lift set to 0
+            case ZERO:
+                // Check position and move if not at 0
+                if (abs(R.leftSlide.getCurrentPosition() - zero_position) <= position_tolerance) {
+                    moveTo(zero_position);
+                    telemetry.addData("Lift Moved", "TRUE");
+                } else {
+                    telemetry.addData("Lift Moved", "FALSE");
+                }
+
+                // State inputs
+                if (newState == LiftState.LOW) {
+                    liftState = LiftState.LOW;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else if (newState == LiftState.MID){
+                    liftState = LiftState.MID;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else if (newState == LiftState.HIGH) {
+                    liftState = LiftState.HIGH;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else {
+                        telemetry.addData("Move Requested", "FALSE");
+                }
+
+                updateTelemetry("Zero");
+
+                break;
+
+            // Lift set to 1/3
+            case LOW:
+                // Check position and move if not at low_position
+                if (abs(R.leftSlide.getCurrentPosition() - low_position) <= position_tolerance) {
+                    moveTo(low_position);
+                    telemetry.addData("Lift Moved", "TRUE");
+                } else {
+                    telemetry.addData("Lift Moved", "FALSE");
+                }
+
+                // State inputs
+                if (newState == LiftState.ZERO) {
+                    liftState = LiftState.ZERO;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else if (newState == LiftState.MID){
+                    liftState = LiftState.MID;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else if (newState == LiftState.HIGH) {
+                    liftState = LiftState.HIGH;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Move Requested", "FALSE");
+                }
+
+                updateTelemetry("LOW");
+
+                break;
+
+            //Lift set to 2/3
+            case MID:
+                // Check position and move if not at mid_position
+                if (abs(R.leftSlide.getCurrentPosition() - mid_position) <= position_tolerance) {
+                    moveTo(mid_position);
+                    telemetry.addData("Lift Moved", "TRUE");
+                } else {
+                    telemetry.addData("Lift Moved", "FALSE");
+                }
+
+                // State inputs
+                if (newState == LiftState.ZERO) {
+                    liftState = LiftState.ZERO;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else if (newState == LiftState.LOW){
+                    liftState = LiftState.LOW;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else if (newState == LiftState.HIGH) {
+                    liftState = LiftState.HIGH;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Move Requested", "FALSE");
+                }
+
+                updateTelemetry("MID");
+
+                break;
+
+            // Lift set to 3/3
+            case HIGH:
+                // Check position and move if not at high_position
+                if (abs(R.leftSlide.getCurrentPosition() - high_position) <= position_tolerance) {
+                    moveTo(high_position);
+                    telemetry.addData("Lift Moved", "TRUE");
+                } else {
+                    telemetry.addData("Lift Moved", "FALSE");
+                }
+
+                // State inputs
+                if (newState == LiftState.ZERO) {
+                    liftState = LiftState.ZERO;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else if (newState == LiftState.LOW){
+                    liftState = LiftState.LOW;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else if (newState == LiftState.MID) {
+                    liftState = LiftState.MID;
+                    telemetry.addData("Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Move Requested", "FALSE");
+                }
+
+
+                updateTelemetry("HIGH");
+
+                break;
+
+        }
+    }
 }
-*/

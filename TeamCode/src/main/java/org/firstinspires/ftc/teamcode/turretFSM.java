@@ -9,7 +9,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class turretFSM {
     // Enum for state memory
-    private enum TurretState {
+    public enum TurretState {
         FORWARD,
         LEFT,
         RIGHT,
@@ -174,6 +174,169 @@ public class turretFSM {
 
                 // State inputs
                 if(currentGamepad1.dpad_left && !previousGamepad1.dpad_left) {
+                    turretState = TurretState.RIGHT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Turret Move Requested", "FALSE");
+                }
+
+                updateTelemetry("EXTENDED_RIGHT");
+
+                break;
+        }
+    }
+
+    public void autonUpdate(TurretState newState){
+        telemetry.addLine("Turret Data");
+        // State machine switch statement
+        switch(turretState){
+            // Turret set to forward
+            case FORWARD:
+                // Check position and move if not at forward_position
+                if(abs(R.turret.getCurrentPosition() - forward_position) >= position_tolerance){
+                    moveTo(forward_position);
+                    telemetry.addData("Turret Moved", "TRUE");
+                } else {
+                    telemetry.addData("Turret Moved", "FALSE");
+                }
+
+                // State inputs
+                if(newState == TurretState.EXTENDED_LEFT) {
+                    turretState = TurretState.EXTENDED_LEFT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.LEFT) {
+                    turretState = TurretState.LEFT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.RIGHT) {
+                    turretState = TurretState.RIGHT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.EXTENDED_RIGHT) {
+                    turretState = TurretState.EXTENDED_RIGHT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Turret Move Requested", "FALSE");
+                }
+
+                updateTelemetry("FORWARD");
+
+                break;
+
+            // Turret set to left
+            case LEFT:
+                // Check position and move if not at left_position
+                if(abs(R.turret.getCurrentPosition() - left_position) >= position_tolerance){
+                    moveTo(left_position);
+                    telemetry.addData("Turret Moved", "TRUE");
+                } else {
+                    telemetry.addData("Turret Moved", "FALSE");
+                }
+
+                // State inputs
+                if(newState == TurretState.EXTENDED_LEFT) {
+                    turretState = TurretState.EXTENDED_LEFT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.FORWARD) {
+                    turretState = TurretState.FORWARD;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.RIGHT) {
+                    turretState = TurretState.RIGHT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.EXTENDED_RIGHT) {
+                    turretState = TurretState.EXTENDED_RIGHT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Turret Move Requested", "FALSE");
+                }
+
+                updateTelemetry("LEFT");
+
+                break;
+
+            // Turret set to right
+            case RIGHT:
+                // Check position and move if not at right_position
+                if(abs(R.turret.getCurrentPosition() - right_position) >= position_tolerance){
+                    moveTo(right_position);
+                    telemetry.addData("Turret Moved", "TRUE");
+                } else {
+                    telemetry.addData("Turret Moved", "FALSE");
+                }
+
+                // State inputs
+                if(newState == TurretState.EXTENDED_LEFT) {
+                    turretState = TurretState.EXTENDED_LEFT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.LEFT) {
+                    turretState = TurretState.LEFT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.FORWARD) {
+                    turretState = TurretState.FORWARD;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.EXTENDED_RIGHT) {
+                    turretState = TurretState.EXTENDED_RIGHT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Turret Move Requested", "FALSE");
+                }
+
+                updateTelemetry("RIGHT");
+
+                break;
+
+            // Turret set to left
+            case EXTENDED_LEFT:
+                // Check position and move if not at extended_left_position
+                if(abs(R.turret.getCurrentPosition() - extended_left_position) >= position_tolerance){
+                    moveTo(extended_left_position);
+                    telemetry.addData("Turret Moved", "TRUE");
+                } else{
+                    telemetry.addData("Turret Moved", "FALSE");
+                }
+
+                // State inputs
+                if(newState == TurretState.LEFT) {
+                    turretState = TurretState.LEFT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.FORWARD) {
+                    turretState = TurretState.FORWARD;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.RIGHT) {
+                    turretState = TurretState.RIGHT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.EXTENDED_RIGHT) {
+                    turretState = TurretState.EXTENDED_RIGHT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Turret Move Requested", "FALSE");
+                }
+
+                updateTelemetry("EXTENDED_LEFT");
+
+                break;
+
+            // Turret set to right
+            case EXTENDED_RIGHT:
+                // Check position and move if not at extended_right_position
+                if(abs(R.turret.getCurrentPosition() - extended_right_position) >= position_tolerance){
+                    moveTo(extended_right_position);
+                    telemetry.addData("Turret Moved", "TRUE");
+                }
+                else
+                {
+                    telemetry.addData("Turret Moved", "FALSE");
+                }
+
+                // State inputs
+                if(newState == TurretState.EXTENDED_LEFT) {
+                    turretState = TurretState.EXTENDED_LEFT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.LEFT) {
+                    turretState = TurretState.LEFT;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.FORWARD) {
+                    turretState = TurretState.FORWARD;
+                    telemetry.addData("Turret Move Requested", "TRUE");
+                } else if (newState == TurretState.RIGHT) {
                     turretState = TurretState.RIGHT;
                     telemetry.addData("Turret Move Requested", "TRUE");
                 } else {

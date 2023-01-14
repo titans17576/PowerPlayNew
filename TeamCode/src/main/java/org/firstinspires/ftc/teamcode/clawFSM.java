@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class clawFSM {
     // Enum for state memory
-    private enum ClawState {
+    public enum ClawState {
         CLOSED,
         OPEN
     }
@@ -81,6 +81,57 @@ public class clawFSM {
 
                 // State inputs
                 if(gamepad1.b && !previousGamepad1.b){
+                    clawState = ClawState.CLOSED;
+                    telemetry.addData("Claw Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Claw Move Requested", "FALSE");
+                }
+
+                updateTelemetry("OPEN");
+
+                break;
+        }
+    }
+
+    public void autonUpdate(ClawState newState) {
+        telemetry.addLine("Claw Data");
+
+        // State machine switch statement
+        switch(clawState){
+            // Claw open
+            case CLOSED:
+                // Check position and move if not at closed_position
+                if(abs(R.claw.getPosition() - closed_position) >= position_tolerance){
+                    R.claw.setPosition(closed_position);
+                    telemetry.addData("Claw Moved", "TRUE");
+                } else {
+                    telemetry.addData("Claw Moved", "FALSE");
+                }
+
+                // State inputs
+                if(newState == ClawState.OPEN){
+                    clawState = ClawState.OPEN;
+                    telemetry.addData("Claw Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Claw Move Requested", "FALSE");
+                }
+
+                updateTelemetry("CLOSED");
+
+                break;
+
+            // Claw closed
+            case OPEN:
+                // Check position and move if not at open_position
+                if(abs(R.claw.getPosition() - open_position) >= position_tolerance){
+                    R.claw.setPosition(open_position);
+                    telemetry.addData("Claw Moved", "TRUE");
+                } else {
+                    telemetry.addData("Claw Moved", "FALSE");
+                }
+
+                // State inputs
+                if(newState == ClawState.CLOSED){
                     clawState = ClawState.CLOSED;
                     telemetry.addData("Claw Move Requested", "TRUE");
                 } else {

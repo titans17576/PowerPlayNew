@@ -25,7 +25,11 @@ public class Teleop1 extends LinearOpMode {
         armFSM ArmFSM = new armFSM(R, telemetry, currentGamepad1, previousGamepad1);
         clawFSM ClawFSM = new clawFSM(R, telemetry, currentGamepad1, previousGamepad1);
 
+        driveControls DriveControls = new driveControls(R, gamepad1);
+
         waitForStart();
+
+        DriveControls.initialize();
 
         while(opModeIsActive()){
             //
@@ -43,6 +47,9 @@ public class Teleop1 extends LinearOpMode {
 
             // Claw finite state machine update
             ClawFSM.teleopUpdate();
+
+            // Drive control update
+            DriveControls.drive();
 
             // Update telemetry data
             telemetry.update();

@@ -8,7 +8,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 public class armFSM {
     // Enum for state memory
-    private enum ArmState {
+    public enum ArmState {
         RETRACTED,
         EXTENDED
     }
@@ -81,6 +81,57 @@ public class armFSM {
 
                 // State inputs
                 if(gamepad1.y && !previousGamepad1.y){
+                    armState = ArmState.RETRACTED;
+                    telemetry.addData("Arm Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Arm Move Requested", "FALSE");
+                }
+
+                updateTelemetry("OPEN");
+
+                break;
+        }
+    }
+
+    public void autonUpdate(ArmState newState) {
+        telemetry.addLine("Arm Data");
+
+        // State machine switch statement
+        switch(armState){
+            // Claw open
+            case RETRACTED:
+                // Check position and move if not at closed_position
+                if(abs(R.arm.getPosition() - retracted_position) >= position_tolerance){
+                    R.arm.setPosition(retracted_position);
+                    telemetry.addData("Arm Moved", "TRUE");
+                } else {
+                    telemetry.addData("Arm Moved", "FALSE");
+                }
+
+                // State inputs
+                if(newState == ArmState.EXTENDED){
+                    armState = ArmState.EXTENDED;
+                    telemetry.addData("Arm Move Requested", "TRUE");
+                } else {
+                    telemetry.addData("Arm Move Requested", "FALSE");
+                }
+
+                updateTelemetry("CLOSED");
+
+                break;
+
+            // Claw closed
+            case EXTENDED:
+                // Check position and move if not at open_position
+                if(abs(R.arm.getPosition() - extended_position) >= position_tolerance){
+                    R.arm.setPosition(extended_position);
+                    telemetry.addData("Arm Moved", "TRUE");
+                } else {
+                    telemetry.addData("Arm Moved", "FALSE");
+                }
+
+                // State inputs
+                if(newState == ArmState.RETRACTED){
                     armState = ArmState.RETRACTED;
                     telemetry.addData("Arm Move Requested", "TRUE");
                 } else {

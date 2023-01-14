@@ -13,6 +13,7 @@ public class autonPath5 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot R = new robot(hardwareMap);
+        
         TrajectorySequence path8 = R.trajectorySequenceBuilder(new Pose2d(0, 0,Math.toRadians(0)))
             .forward(15.0)
             .waitSeconds(4.0)
@@ -23,6 +24,8 @@ public class autonPath5 extends LinearOpMode {
             .strafeRight(37.0)
             .waitSeconds(2.0)
             .build();
+
+        waitForStart();
 
         R.followTrajectorySequence(path8);
     }
