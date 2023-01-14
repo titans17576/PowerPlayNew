@@ -6,11 +6,11 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class clawFSM {
+public class armFSM {
     // Enum for state memory
-    private enum ClawState {
-        CLOSED,
-        OPEN
+    private enum ArmState {
+        RETRACTED,
+        EXTENDED
     }
 
     // Position variables
@@ -19,7 +19,7 @@ public class clawFSM {
     final double open_position = 0;
 
     // ClawState instance variable
-    ClawState clawState = ClawState.CLOSED;
+    ArmState armState = ArmState.RETRACTED;
 
     // OpMode variables
     robot R;
@@ -28,7 +28,7 @@ public class clawFSM {
     Gamepad previousGamepad1;
 
     // Import opmode variables when instance is created
-    public clawFSM(robot Robot, Telemetry t, Gamepad g1, Gamepad pg1) {
+    public armFSM(robot Robot, Telemetry t, Gamepad g1, Gamepad pg1) {
         R = Robot;
         telemetry = t;
         gamepad1 = g1;
@@ -37,32 +37,32 @@ public class clawFSM {
 
     private void updateTelemetry(String status) {
         // Add encoder position to telemetry
-        telemetry.addData("Claw Position", R.claw.getPosition());
+        telemetry.addData("Arm Position", R.arm.getPosition());
         // Add lift position to telemetry
         telemetry.addData("Status of Claw", status);
     }
 
     public void teleopUpdate() {
-        telemetry.addLine("Claw Data");
+        telemetry.addLine("Arm Data");
 
         // State machine switch statement
-        switch(clawState){
+        switch(armState){
             // Claw open
-            case CLOSED:
+            case RETRACTED:
                 // Check position and move if not at closed_position
-                if(abs(R.claw.getPosition() - closed_position) >= position_tolerance){
-                    R.claw.setPosition(closed_position);
-                    telemetry.addData("Claw Moved", "TRUE");
+                if(abs(R.arm.getPosition() - closed_position) >= position_tolerance){
+                    R.arm.setPosition(closed_position);
+                    telemetry.addData("Arm Moved", "TRUE");
                 } else {
-                    telemetry.addData("Claw Moved", "FALSE");
+                    telemetry.addData("Arm Moved", "FALSE");
                 }
 
                 // State inputs
                 if(gamepad1.a && !previousGamepad1.a){
-                    clawState = ClawState.OPEN;
-                    telemetry.addData("Claw Move Requested", "TRUE");
+                    armState = ArmState.EXTENDED;
+                    telemetry.addData("Arm Move Requested", "TRUE");
                 } else {
-                    telemetry.addData("Claw Move Requested", "FALSE");
+                    telemetry.addData("Arm Move Requested", "FALSE");
                 }
 
                 updateTelemetry("CLOSED");
@@ -70,21 +70,21 @@ public class clawFSM {
                 break;
 
             // Claw closed
-            case OPEN:
+            case EXTENDED:
                 // Check position and move if not at open_position
-                if(abs(R.claw.getPosition() - open_position) >= position_tolerance){
-                    R.claw.setPosition(open_position);
-                    telemetry.addData("Claw Moved", "TRUE");
+                if(abs(R.arm.getPosition() - open_position) >= position_tolerance){
+                    R.arm.setPosition(open_position);
+                    telemetry.addData("Arm Moved", "TRUE");
                 } else {
-                    telemetry.addData("Claw Moved", "FALSE");
+                    telemetry.addData("Arm Moved", "FALSE");
                 }
 
                 // State inputs
                 if(gamepad1.b && !previousGamepad1.b){
-                    clawState = ClawState.CLOSED;
-                    telemetry.addData("Claw Move Requested", "TRUE");
+                    armState = ArmState.RETRACTED;
+                    telemetry.addData("Arm Move Requested", "TRUE");
                 } else {
-                    telemetry.addData("Claw Move Requested", "FALSE");
+                    telemetry.addData("Arm Move Requested", "FALSE");
                 }
 
                 updateTelemetry("OPEN");

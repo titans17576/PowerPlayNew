@@ -111,25 +111,23 @@ public class robot extends MecanumDrive {
     public static double VY_WEIGHT = 1;
     public static double OMEGA_WEIGHT = 1;
 
-    private TrajectorySequenceRunner trajectorySequenceRunner;
+    private final TrajectorySequenceRunner trajectorySequenceRunner;
 
     private static final TrajectoryVelocityConstraint VEL_CONSTRAINT = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL, TRACK_WIDTH);
     private static final TrajectoryAccelerationConstraint ACCEL_CONSTRAINT = getAccelerationConstraint(MAX_ACCEL);
 
-    private TrajectoryFollower follower;
+    public DcMotorEx leftFront, leftRear, rightRear, rightFront, turret;
+    public DcMotor leftSlide, rightSlide;
+    public Servo claw, arm;
+    private final List<DcMotorEx> motors;
 
-    public DcMotorEx leftFront, leftRear, rightRear, rightFront,turret;
-    //public DcMotor slide;
-    public Servo claw;
-    private List<DcMotorEx> motors;
-
-    private BNO055IMU imu;
-    private VoltageSensor batteryVoltageSensor;
+    private final BNO055IMU imu;
+    private final VoltageSensor batteryVoltageSensor;
 
     public robot(HardwareMap hardwareMap) {
         super(kV, kA, kStatic, TRACK_WIDTH, TRACK_WIDTH, LATERAL_MULTIPLIER);
 
-        follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
+        TrajectoryFollower follower = new HolonomicPIDVAFollower(TRANSLATIONAL_PID, TRANSLATIONAL_PID, HEADING_PID,
                 new Pose2d(0.5, 0.5, Math.toRadians(5.0)), 0.5);
 
         LynxModuleUtil.ensureMinimumFirmwareVersion(hardwareMap);

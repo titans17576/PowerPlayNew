@@ -13,10 +13,12 @@ public class autonPath1 extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         robot R = new robot(hardwareMap);
+
         TrajectorySequence path1 = R.trajectorySequenceBuilder(new Pose2d(0, 0,Math.toRadians(0)))
             .turn(Math.toRadians(90))
             .splineTo(new Vector2d(-60.0, -60.0), Math.toRadians(180))
             .build();
+
         TrajectorySequence path2 = R.trajectorySequenceBuilder(new Pose2d(0, 0,Math.toRadians(0)))
             .turn(Math.toRadians(-90))
             .forward(120.0)
