@@ -48,6 +48,7 @@ public class driveControls {
         R.rightFront.setPower(calcPower(drive - turn - strafe, slow));
 
     }
+    
     static double calcPower(double power, double slow) {
         return Range.clip(power * power * Math.signum(power) * slow,-slow,slow);
     }
