@@ -197,6 +197,10 @@ public class robot extends MecanumDrive {
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        leftSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightSlide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 

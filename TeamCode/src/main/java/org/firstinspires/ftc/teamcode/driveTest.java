@@ -19,12 +19,7 @@ public class driveTest extends LinearOpMode {
         double test = 0;
         double slow = 1;
         while(opModeIsActive()){
-
-
-
             // Drive calculations
-
-
             // Servo controls
             if(gamepad1.x){
                 R.leftFront.setPower(0.5);
@@ -37,6 +32,12 @@ public class driveTest extends LinearOpMode {
             }
             if(gamepad1.b){
                 R.rightRear.setPower(0.5);
+            }
+            if(gamepad1.left_bumper){
+                R.rightRear.setPower(0);
+                R.rightFront.setPower(0);
+                R.leftRear.setPower(0);
+                R.leftFront.setPower(0);
             }
 
 

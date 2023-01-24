@@ -10,10 +10,12 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 public class autonTest extends LinearOpMode {
     @Override
-    public void runOpMode(){
+    public void runOpMode() throws InterruptedException {
         robot R = new robot(hardwareMap);
+        Pose2d startPose = new Pose2d(0, 0, 0);
 
-        TrajectorySequence pathd = R.trajectorySequenceBuilder(new Pose2d(0, 0,Math.toRadians(0)))
+        R.setPoseEstimate(startPose);
+        TrajectorySequence pathd = R.trajectorySequenceBuilder(startPose)
                 .forward(5.0)
                 .waitSeconds(5.0)
                 .strafeRight(35.0)
@@ -24,6 +26,8 @@ public class autonTest extends LinearOpMode {
 
         waitForStart();
 
-        R.followTrajectorySequence(pathd);
+        if (!isStopRequested())
+            R.followTrajectorySequenceAsync(pathd);
+
     }
 }
