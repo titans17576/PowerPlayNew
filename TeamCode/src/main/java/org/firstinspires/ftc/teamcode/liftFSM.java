@@ -69,7 +69,7 @@ public class liftFSM {
             // Lift set to 0
             case ZERO:
                     // Check position and move if not at 0
-                    if (abs(R.leftSlide.getCurrentPosition() - zero_position) <= position_tolerance) {
+                    if (abs(R.leftSlide.getCurrentPosition() - zero_position) > position_tolerance) {
                         moveTo(zero_position);
                         telemetry.addData("Lift Moved", "TRUE");
                     } else {
@@ -91,7 +91,7 @@ public class liftFSM {
                 // Lift set to 1/3
             case LOW:
                 // Check position and move if not at low_position
-                if (abs(R.leftSlide.getCurrentPosition() - low_position) <= position_tolerance) {
+                if (abs(R.leftSlide.getCurrentPosition() - low_position) > position_tolerance) {
                     moveTo(low_position);
                     telemetry.addData("Lift Moved", "TRUE");
                 } else {
@@ -116,7 +116,7 @@ public class liftFSM {
             //Lift set to 2/3
             case MID:
                 // Check position and move if not at mid_position
-                if (abs(R.leftSlide.getCurrentPosition() - mid_position) <= position_tolerance) {
+                if (abs(R.leftSlide.getCurrentPosition() - mid_position) > position_tolerance) {
                     moveTo(mid_position);
                     telemetry.addData("Lift Moved", "TRUE");
                 } else {
@@ -141,7 +141,7 @@ public class liftFSM {
             // Lift set to 3/3
             case HIGH:
                 // Check position and move if not at high_position
-                if (abs(R.leftSlide.getCurrentPosition() - high_position) <= position_tolerance) {
+                if (abs(R.leftSlide.getCurrentPosition() - high_position) > position_tolerance) {
                     moveTo(high_position);
                     telemetry.addData("Lift Moved", "TRUE");
                 } else {
