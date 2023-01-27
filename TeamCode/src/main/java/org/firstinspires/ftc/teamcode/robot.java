@@ -102,10 +102,10 @@ public class robot extends MecanumDrive {
      * Simple mecanum drive hardware implementation for REV hardware.
      */
 
-    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(0, 0, 0);
-    public static PIDCoefficients HEADING_PID = new PIDCoefficients(0, 0, 0);
+    public static PIDCoefficients TRANSLATIONAL_PID = new PIDCoefficients(8, 0, 0);
+    public static PIDCoefficients HEADING_PID = new PIDCoefficients(8, 0, 0);
 
-    public static double LATERAL_MULTIPLIER = 1;
+    public static double LATERAL_MULTIPLIER = 1.1157;
 
     public static double VX_WEIGHT = 1;
     public static double VY_WEIGHT = 1;
@@ -171,9 +171,9 @@ public class robot extends MecanumDrive {
         rightFront = hardwareMap.get(DcMotorEx.class, "rightFront");
         leftSlide = hardwareMap.get(DcMotorEx.class, "rightSlide");
         rightSlide = hardwareMap.get(DcMotorEx.class, "leftSlide");
+        turret = hardwareMap.get(DcMotorEx.class, "turret");
         claw = hardwareMap.get(Servo.class, "claw");
         arm = hardwareMap.get(Servo.class, "arm");
-        turret = hardwareMap.get(DcMotorEx.class, "turret");
 
         // TODO: If directions not working, reverse problem motors
 
@@ -182,7 +182,6 @@ public class robot extends MecanumDrive {
         rightRear.setPower(0);
         rightFront.setPower(0);
         turret.setPower(0);
-        //slide.setPower(0);
 
         leftFront.setDirection(DcMotorSimple.Direction.FORWARD);
         leftFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -190,14 +189,15 @@ public class robot extends MecanumDrive {
         leftRear.setDirection(DcMotorSimple.Direction.FORWARD);
         leftRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         leftRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightFront.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFront.setDirection(DcMotorSimple.Direction.FORWARD);
         rightFront.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightFront.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightRear.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightRear.setDirection(DcMotorSimple.Direction.FORWARD);
         rightRear.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         rightRear.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         turret.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        turret.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motors = Arrays.asList(leftFront, leftRear, rightRear, rightFront);
 
         for (DcMotorEx motor : motors) {
