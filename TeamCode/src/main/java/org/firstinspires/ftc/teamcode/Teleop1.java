@@ -26,7 +26,8 @@ public class Teleop1 extends LinearOpMode {
         clawFSM ClawFSM = new clawFSM(R, telemetry, currentGamepad1, previousGamepad1);
 
         driveControls DriveControls = new driveControls(R, gamepad1);
-
+        R.leftSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        R.rightSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         waitForStart();
 
         DriveControls.initialize();
