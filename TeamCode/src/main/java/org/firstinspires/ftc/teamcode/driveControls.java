@@ -8,18 +8,20 @@ public class driveControls {
     robot R;
 
     Gamepad gamepad1;
+    Gamepad previousGamepad1;
 
     double slow;
     double regSpeed;
     double slowSpeed;
 
-    public driveControls(robot Robot, Gamepad gp1) { this(0.7,0.15, Robot, gp1); }
+    public driveControls(robot Robot, Gamepad gp1,Gamepad pgp1) { this(0.7,0.25, Robot, gp1,pgp1); }
 
-    public driveControls(double regularSpeed, double slowedSpeed, robot Robot, Gamepad gp1){
+    public driveControls(double regularSpeed, double slowedSpeed, robot Robot, Gamepad gp1, Gamepad pgp1){
         regSpeed = regularSpeed;
         slowSpeed = slowedSpeed;
         R = Robot;
         gamepad1 = gp1;
+        previousGamepad1 = pgp1;
     }
 
     public void initialize(){
@@ -27,13 +29,12 @@ public class driveControls {
         R.leftRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         R.rightFront.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         R.rightRear.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        slow = regSpeed;
     }
 
     public void drive() {
-        if (gamepad1.left_trigger >= 0.5) {
-            slow = slowSpeed;
-        } else {
-            slow = regSpeed;
+        if (gamepad1.left_trigger >= 0.5 && previousGamepad1.left_trigger < 0.5) {
+            slow = (slow == regSpeed)? slowSpeed : regSpeed;
         }
 
         // Drive inputs
