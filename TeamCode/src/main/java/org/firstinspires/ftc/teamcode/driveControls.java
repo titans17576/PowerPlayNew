@@ -13,7 +13,7 @@ public class driveControls {
     double regSpeed;
     double slowSpeed;
 
-    public driveControls(robot Robot, Gamepad gp1) { this(0.7,0.15, Robot, gp1); }
+    public driveControls(robot Robot, Gamepad gp1) { this(0.7,0.25, Robot, gp1); }
 
     public driveControls(double regularSpeed, double slowedSpeed, robot Robot, Gamepad gp1){
         regSpeed = regularSpeed;

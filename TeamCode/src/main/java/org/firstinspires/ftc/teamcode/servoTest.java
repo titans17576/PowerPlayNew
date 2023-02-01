@@ -16,17 +16,17 @@ public class servoTest extends LinearOpMode {
         waitForStart();
 
         while(opModeIsActive()) {
-            telemetry.addData("pos", R.claw.getPosition());
-            telemetry.addData("dir", R.claw.getDirection());
+            telemetry.addData("pos", R.arm.getPosition());
+            telemetry.addData("dir", R.arm.getDirection());
             telemetry.update();
             if(gamepad1.x){
-                R.claw.setPosition(0.0);
+                R.arm.setPosition(0.0);
             }
             if(gamepad1.a) {
-                R.claw.setPosition(.29);
+                R.arm.setPosition(.29);
             }
             if(gamepad1.b) {
-                R.claw.setPosition(1.0);
+                R.arm.setPosition(1.0);
             }
 
         }
