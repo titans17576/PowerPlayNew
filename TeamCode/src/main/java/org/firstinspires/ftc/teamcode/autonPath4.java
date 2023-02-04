@@ -53,7 +53,7 @@ public class autonPath4 extends LinearOpMode {
 
         TrajectorySequence path = R.trajectorySequenceBuilder(new Pose2d(0, 0,Math.toRadians(0)))
                 .forward(5.0)
-                .strafeLeft(23.0)
+                .strafeRight(23.0)
                 .forward(46.0)
                 .build();
 
