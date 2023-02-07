@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.titans17576.autonpaths;
 
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
@@ -9,7 +9,12 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.robot.Robot;
 
+import org.firstinspires.ftc.teamcode.armFSM;
+import org.firstinspires.ftc.teamcode.clawFSM;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.liftFSM;
+import org.firstinspires.ftc.teamcode.robot;
+import org.firstinspires.ftc.teamcode.turretFSM;
 
 import java.util.concurrent.atomic.AtomicReference;
 
