@@ -45,7 +45,7 @@ public class cmyDetection extends OpenCvPipeline {
         Imgproc.findContours(tempOutput, contours[1], hierarchies[1], Imgproc.RETR_TREE,
                 Imgproc.CHAIN_APPROX_SIMPLE);
 
-        Core.inRange(frame, new Scalar(65, 50, 70), new Scalar(85, 255, 255), tempOutput);
+        Core.inRange(frame, new Scalar(50, 50, 70), new Scalar(70, 255, 255), tempOutput);
         Imgproc.findContours(tempOutput, contours[2], hierarchies[2], Imgproc.RETR_TREE,
                 Imgproc.CHAIN_APPROX_SIMPLE);
 
