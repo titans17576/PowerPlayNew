@@ -19,7 +19,7 @@ public class liftFSM {
     // Position variables
     final int position_tolerance = 5;
     final int zero_position = 0;
-    final int low_position = 1240;
+    final int low_position = 1500;
     final int mid_position = 1442; // max we could reach was like 1500 ticks so idk
     final int high_position = 1980;
 
