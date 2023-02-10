@@ -46,7 +46,6 @@ public class autonPath3 extends LinearOpMode {
         AtomicReference<clawFSM.ClawState> clawState = new AtomicReference<>(clawFSM.ClawState.CLOSED);
         AtomicReference<armFSM.ArmState> armState = new AtomicReference<>(armFSM.ArmState.RETRACTED);
         AtomicReference<turretFSM.TurretState> turretState = new AtomicReference<>(turretFSM.TurretState.FORWARD);
-
         Trajectory m = R.trajectoryBuilder(new Pose2d())
                 .strafeRight(23)
                 .build();
